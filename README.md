@@ -13,14 +13,16 @@ Make sure you have Node.js and npm installed on your machine. Then, follow these
    git clone git@github.com:dontyellwillcry/todo_app.git
 
 2. Navigate to the project directory:
-
-  * cd htmx-todo-app
+   ```bash
+   cd htmx-todo-app
 
 3. Install dependencies:
-  * npm install 
+   ```bash
+   npm install 
 
 4. To start the application, run the following command:
-  * npm start
+   ```bash
+   npm start
 
 
 ## Features
