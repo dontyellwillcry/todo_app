@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+    <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+  </head>
+ 
+<body class="mui-container">
+
+    <h1 class="mui--text-center">Todo App</h1>
+
+    <form hx-post="/addTodo" hx-target="#todoList">
+        <div class="mui-textfield">
+            <label for="todoText">Add Todo:</label>
+            <input type="text" id="todoText" name="todoText" required>
+        </div>
+        <button type="submit" class="mui-btn mui-btn--raised mui-btn--primary">Add</button>
+    </form>
+
+    <ul id="todoList" hx-get="/getTodos">
+    </ul>
+
+</body>
+
+  
+</html>
