@@ -18,26 +18,42 @@ console.log(todos);
 
 
 app.get('/getTodos', (req, res) => {
-    res.send(generateTodoListHtml());
+    res.send(updateTodoListHtml());
 });
 
 app.post('/addTodo', (req, res) => {
     const todoText = req.body.todoText;
     todos.push({ id: todos.length + 1, text: todoText });
-    res.send(generateTodoListHtml());
+    res.send(updateTodoListHtml());
 });
 
 app.delete('/deleteTodo/:id', (req, res) => {
     const todoId = parseInt(req.params.id);
     todos = todos.filter(todo => todo.id !== todoId);
-    res.send(generateTodoListHtml());
+    res.send(updateTodoListHtml());
 });
 
-function generateTodoListHtml() {
-    return todos.map(todo => `
-        <li>${todo.text} <button hx-delete="/deleteTodo/${todo.id}">Delete</button></li>`
-    ).join('');
+app.put('/toggleTodo/:id', (req, res) => {
+    const todoId = parseInt(req.params.id);
+    const todo = todos.find(todo => todo.id === todoId);
+    
+    todo.completed = !todo.completed;
+    
+    res.send(updateTodoListHtml());
+});
+
+function updateTodoListHtml() {
+    return `
+        <ul style="list-style-type: none; padding: 0;">
+            ${todos.map(todo => `
+                <li data-id="${todo.id}" class="todo-item" hx-put="/toggleTodo/${todo.id}" hx-click="/toggleTodo/${todo.id}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; margin: 5px; border: 1px solid #ccc; cursor: pointer; transition: background-color 0.3s ease; ${todo.completed ? 'text-decoration: line-through;' : ''}" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor='transparent'">
+                    <span>${todo.text}</span>
+                    <button class="mui-btn mui-btn--raised mui-btn--primary" hx-delete="/deleteTodo/${todo.id}" style="margin-left: 10px;">Delete</button>
+                </li>`
+            ).join('')}
+        </ul>`;
 }
+
 
 
 
