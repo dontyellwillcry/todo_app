@@ -64,7 +64,9 @@ function updateTodoListHtml() {
 
 
 
-app.listen(port, () => {
-  console.log('listening on port', port);
-});
+const PORT = process.env.PORT || 5000;
 
+/** Listen * */
+app.listen(PORT, () => {
+    console.log(`Listening on port: ${PORT}`);
+});
